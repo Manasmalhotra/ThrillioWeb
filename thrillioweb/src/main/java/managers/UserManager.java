@@ -1,5 +1,6 @@
 package managers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import constants.Gender;
@@ -31,9 +32,11 @@ public class UserManager {
 		
 		return user;
 	}
-	
-	public List<User> getUsers() {
-		return dao.getUsers();
+	public void addUser(User u) throws SQLException {
+		dao.addUser(u);
+	}
+	public List<User> getUsers() throws SQLException {
+			return dao.getUsers();
 	}
 
 	public User getUser(long userId) {

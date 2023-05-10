@@ -77,30 +77,14 @@ public class BookmarkManager {
 		UserBookmark userBookmark = new UserBookmark();
 		userBookmark.setUser(user);
 		userBookmark.setBookmark(bookmark);
-		
-		/*if (bookmark instanceof WebLink) {
-			try {				
-				String url = ((WebLink)bookmark).getUrl();
-				System.out.println("THIS IS URL "+url);
-				if (!url.endsWith(".pdf")) {
-					System.out.println("Enter For Download");
-					String webpage = HttpConnect.download(((WebLink)bookmark).getUrl());
-					if (webpage != null) {
-						System.out.println("HELLO");
-						IOUtil.write(webpage, bookmark.getId());
-					}
-				}				
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}*/
-		
 		dao.saveUserBookmark(userBookmark);
-
+	}
+	
+	public void deleteUserBookmark(User user, Bookmark bookmark) {
+		UserBookmark userBookmark = new UserBookmark();
+		userBookmark.setUser(user);
+		userBookmark.setBookmark(bookmark);
+		dao.deleteUserBookmark(userBookmark);
 	}
 
 	public void setKidFriendlyStatus(User user, KidFriendlyStatus kidFriendlyStatus, Bookmark bookmark) {

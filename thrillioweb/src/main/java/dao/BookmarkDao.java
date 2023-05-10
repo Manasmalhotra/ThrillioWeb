@@ -61,6 +61,46 @@ private void saveUserWebLink(UserBookmark userBookmark, Statement stmt) throws S
 stmt.executeUpdate(query);	
 }
 
+public void deleteUserBookmark(UserBookmark userBookmark) {
+	//DataStore.add(userBookmark);
+	try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jid_thrillio?allowPublicKeyRetrieval=true&useSSL=false", "root", "Manas@65");
+			Statement stmt = conn.createStatement();) {
+		    if(userBookmark.getBookmark() instanceof Book) {
+		    	deleteUserBook(userBookmark,stmt);
+		    }
+		    else if(userBookmark.getBookmark() instanceof Movie) {
+		        deleteUserMovie(userBookmark,stmt);
+		    }	
+		    else {
+		    	deleteUserWebLink(userBookmark,stmt);}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}
+
+
+private void deleteUserWebLink(UserBookmark userBookmark, Statement stmt) throws SQLException {
+	String query="delete from User_WebLink where user_id="+
+            userBookmark.getUser().getId()+ "and weblink_id="+userBookmark.getBookmark().getId();
+
+stmt.executeUpdate(query);
+	
+}
+
+private void deleteUserMovie(UserBookmark userBookmark, Statement stmt) throws SQLException {
+	String query="delete from User_Movie where user_id="+
+            userBookmark.getUser().getId()+ "and movie_id="+userBookmark.getBookmark().getId();
+
+stmt.executeUpdate(query);
+	
+}
+
+private void deleteUserBook(UserBookmark userBookmark, Statement stmt) throws SQLException {
+	String query="delete from user_book where user_id="+userBookmark.getUser().getId()+ " and book_id="+userBookmark.getBookmark().getId();
+
+stmt.executeUpdate(query);
+}
+
 public List<WebLink> getAllWebLinks(){
 	List<WebLink>result=new ArrayList<>();
 	List<List<Bookmark> >bookmarks=DataStore.getBookmarks();

@@ -7,12 +7,17 @@
 <title>Login</title>
 </head>
 <body>
-	<div style="height:65px;align: center;background: #DB5227;font-family: Arial;color: white;"">
+	<div style="height:65px;align: center;background: #DB5227;font-family: Arial;color: white;">
 		<br><b>
 		<a href="" style="font-family:garamond;font-size:34px;margin:0 0 0 10px;color:white;text-decoration: none;">thrill.io</a></b>          
 	</div>
+	<div style="height:25px;background: #DB5227;font-family: Arial;color: white;">
+			<b>
+			<a href="<%=request.getContextPath()%>/register.jsp" style="font-size:16px;color:white;margin-left:1150px;text-decoration:none;">Register</a>	
+			</b>
+		</div> 
 	<br><br>
-	<form method="POST" action="<%=request.getContextPath()%>/auth">
+	<form method="POST" action="<%=request.getContextPath()%>/auth/login">
       <fieldset>
 	    <legend>Log In</legend>	    
 	    <table>

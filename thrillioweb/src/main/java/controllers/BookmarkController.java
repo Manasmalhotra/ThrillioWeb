@@ -16,8 +16,7 @@ import entities.User;
 import managers.BookmarkManager;
 import managers.UserManager;
 
-@WebServlet(urlPatterns={"/bookmark","/bookmark/mybooks","/bookmark/save"})
-
+@WebServlet(urlPatterns={"/auth/login/bookmark","/auth/login/bookmark/mybooks","/auth/login/bookmark/save","/auth/login/bookmark/unsave"})
 public class BookmarkController extends HttpServlet{
     
 	public BookmarkController() {
@@ -28,7 +27,17 @@ public class BookmarkController extends HttpServlet{
 		RequestDispatcher dispatcher=null;
 		if(request.getSession().getAttribute("userId")!=null) {
 			long userId=(long)request.getSession().getAttribute("userId");
-			if(request.getServletPath().contains("save")){
+			if(request.getServletPath().contains("unsave")) {
+				dispatcher=request.getRequestDispatcher("/mybooks.jsp");
+				String bid=request.getParameter("bid");
+				User user=UserManager.getInstance().getUser(userId);
+				Bookmark book=BookmarkManager.getinstance().getBook(Long.parseLong(bid));
+				BookmarkManager.getinstance().deleteUserBookmark(user, book);
+				Collection<Bookmark>list=BookmarkManager.getinstance().getBooks(true,userId);
+				request.setAttribute("books",list);
+			}
+			
+			else if(request.getServletPath().contains("save")){
 				dispatcher=request.getRequestDispatcher("/mybooks.jsp");
 				//dispatcher.forward(request, response);
 				String bid=request.getParameter("bid");

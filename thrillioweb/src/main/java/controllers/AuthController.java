@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,12 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import constants.Gender;
+import constants.UserType;
+import entities.User;
 import managers.UserManager;
 
 /**
  * Servlet implementation class AuthController
  */
-@WebServlet(urlPatterns={"/auth","/auth/logout"})
+@WebServlet(urlPatterns={"/auth/register","/auth/login","/auth/logout"})
 public class AuthController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +35,28 @@ public class AuthController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		if(!request.getServletPath().contains("logout")) {
+		if(request.getServletPath().contains("register")) {
+			long id=1000;
+			String email=request.getParameter("email");
+			String password=request.getParameter("password");
+			String firstName=request.getParameter("firstname");
+			String lastName=request.getParameter("lastname");
+			int gender_id=Integer.parseInt(request.getParameter("gender"));
+			Gender gender = Gender.values()[gender_id];
+			UserType userType=UserType.values()[0];
+			User u=UserManager.getInstance().createUser(id,email,password,firstName,lastName, gender, userType);
+			try {
+				UserManager.getInstance().addUser(u);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			long userId=UserManager.getInstance().authenticate(email,password);
+			HttpSession session=request.getSession();
+			session.setAttribute("userId", userId);
+			request.getRequestDispatcher("login/bookmark/mybooks").forward(request, response);
+		}
+		else if(!request.getServletPath().contains("logout")) {
 			String email=request.getParameter("email");
 			String password=request.getParameter("password");
 			
@@ -38,7 +64,7 @@ public class AuthController extends HttpServlet {
 			if(userId!=-1) {
 				HttpSession session=request.getSession();
 				session.setAttribute("userId", userId);
-				request.getRequestDispatcher("bookmark/mybooks").forward(request, response);
+				request.getRequestDispatcher("login/bookmark/mybooks").forward(request, response);
 			}
 			else {
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
