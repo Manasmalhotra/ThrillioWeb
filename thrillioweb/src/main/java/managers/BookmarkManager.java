@@ -2,6 +2,7 @@ package managers;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,12 +30,12 @@ public class BookmarkManager {
 		return instance;
 	}
 
-	public Movie createMovie(long id, String title, String profileUrl, int releaseYear, String[] cast,
+	public Movie createMovie(long id, String title, String imageUrl, int releaseYear, String[] cast,
 			String[] directors, MovieGenre genre, double imdbRating) {
 		Movie movie = new Movie();
 		movie.setId(id);
 		movie.setTitle(title);
-		movie.setProfileUrl(profileUrl);
+		movie.setImageUrl(imageUrl);
 		movie.setReleaseYear(releaseYear);
 		movie.setCast(cast);
 		movie.setDirectors(directors);
@@ -57,11 +58,11 @@ public class BookmarkManager {
 		return book;
 	}
 
-	public WebLink createWebLink(long id, String title, String profileUrl, String url, String host) {
+	public WebLink createWebLink(long id, String title, String ImageUrl, String url, String host) {
 
 		WebLink weblink = new WebLink();
 		weblink.setId(id);
-		weblink.setProfileUrl(host);
+		weblink.setImageUrl(host);
 		weblink.setTitle(title);
 		weblink.setUrl(url);
 		weblink.setHost(host);
@@ -117,5 +118,15 @@ public class BookmarkManager {
 	public Bookmark getBook(long bid) {
 		return dao.getBook(bid);
 		
+	}
+
+	public Bookmark getMovie(long mid){
+		// TODO Auto-generated method stub
+		return dao.getMovie(mid);
+	}
+
+	public Collection<Bookmark> getMovies(boolean b, long userId) {
+		// TODO Auto-generated method stub
+		return dao.getMovies(b,userId);
 	}
 }

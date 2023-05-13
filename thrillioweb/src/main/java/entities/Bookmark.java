@@ -6,7 +6,7 @@ abstract public class Bookmark {
 
 	private long id;
 	private String title;
-	private String profileUrl;
+	private String imageUrl;
 	private KidFriendlyStatus kidFriendlyStatus=KidFriendlyStatus.UNKNOWN;
     private User kidFriendlyMarkedBy;
     private User sharedBy;
@@ -27,19 +27,11 @@ abstract public class Bookmark {
 		this.title = title;
 	}
 
-	public String getProfileUrl() {
-		return profileUrl;
-	}
 
-	public abstract boolean isKidFriendlyEligible();
-	
-	public void setProfileUrl(String profileUrl) {
-		this.profileUrl = profileUrl;
-	}
 
 	@Override
 	public String toString() {
-		return "Bookmark [id=" + id + ", title=" + title + ", profileUrl=" + profileUrl + "]";
+		return "Bookmark [id=" + id + ", title=" + title + ", imageUrl=" + imageUrl + "]";
 	}
 
 	public KidFriendlyStatus getKidFriendlyStatus() {
@@ -64,6 +56,19 @@ abstract public class Bookmark {
 
 	public void setSharedBy(User sharedBy) {
 		this.sharedBy = sharedBy;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public boolean isKidFriendlyEligible() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

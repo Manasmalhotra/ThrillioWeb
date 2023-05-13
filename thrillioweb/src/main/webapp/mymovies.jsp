@@ -26,22 +26,24 @@
 	<br><br>
 	    
     <c:choose>
-		<c:when test="${!empty(books)}">
+		<c:when test="${!empty(movies)}">
 			<table>
-			   <c:forEach var = "book" items="${books}">
+			   <c:forEach var = "movie" items="${movies}">
 			     <tr>
 				   <td>
-				     <img src="${book.imageUrl}" width="175" height="200">
+				     <img src="${movie.imageUrl}" width="175" height="200">
 				   </td>
 					    
 				   <td style="color:gray;">
-					 By <span style="color: #B13100;">${book.authors[0]}</span>
+					 Title: <span style="color: #B13100;">${movie.title}</span>
 					 <br><br>
-					 Rating: <span style="color: #B13100;">${book.amazonRating}</span>
+					 Release Year: <span style="color: #B13100;">${movie.releaseYear}</span>
 					 <br><br>
-					 Publication Year: <span style="color: #B13100;">${book.publicationYear}</span>
+					 IMDB Rating: <span style="color: #B13100;">${movie.imdbRating}</span>
 					<br><br>
-			 <a href = "<%=request.getContextPath()%>/auth/login/bookmark/books/unsave?bid=${book.id}" style="font-size:18px;color:#0058A6;font-weight:bold;text-decoration:none">Unsave</a>
+					 Genre: <span style="color: #B13100;">${movie.genre.getName()}</span>
+					<br><br>
+			 <a href = "<%=request.getContextPath()%>/auth/login/bookmark/movies/unsave?mid=${movie.id}" style="font-size:18px;color:#0058A6;font-weight:bold;text-decoration:none">Unsave</a>
 				  </td>
 				  </tr>
 				  <tr>

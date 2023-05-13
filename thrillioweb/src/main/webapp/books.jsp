@@ -12,8 +12,11 @@
 		<a href="" style="font-family:garamond;font-size:34px;margin:0px 0px 0px 10px;color:white;text-decoration: none;">thrill.io</a></b>
 		<div style="height:25px;background: #DB5227;font-family: Arial;color: white;">
 			<b>
-			<a href="<%=request.getContextPath()%>/auth/login/bookmark/mybooks" style="font-size:16px;color:white;margin-left:1150px;text-decoration:none;">My Books</a>
-			<a href="<%=request.getContextPath()%>/auth/logout" style="font-size:16px;color:white;margin-left:10px;text-decoration:none;">Logout</a>
+			<a href="<%=request.getContextPath()%>/auth/login/bookmark/mybooks" style="font-size:16px;color:white;text-decoration:none;margin-left:900px;">My Books</a>
+			<a href="<%=request.getContextPath()%>/auth/login/bookmark/mymovies" style="font-size:16px;color:white;;text-decoration:none;">My Movies</a>
+			<a href="<%=request.getContextPath()%>/auth/login/bookmark/books" style="font-size:16px;color:white;text-decoration:none;">Books</a>
+			<a href="<%=request.getContextPath()%>/auth/login/bookmark/movies" style="font-size:16px;color:white;text-decoration:none;">Movies</a>
+			<a href="<%=request.getContextPath()%>/auth/logout" style="font-size:16px;color:white;text-decoration:none;">Logout</a>
 			</b>
 			
 		</div>		
@@ -34,7 +37,7 @@
 			 <br><br>
 			 Publication Year: <span style="color: #B13100;">${book.publicationYear}</span>
 			 <br><br>
-			 <a href = "<%=request.getContextPath()%>/auth/login/bookmark/save?bid=${book.id}" style="font-size:18px;color:#0058A6;font-weight:bold;text-decoration:none">Save</a>
+			 <a href = "<%=request.getContextPath()%>/auth/login/bookmark/books/save?bid=${book.id}" style="font-size:18px;color:#0058A6;font-weight:bold;text-decoration:none">Save</a>
 		   </td>
 		  </tr>
 		  <tr>

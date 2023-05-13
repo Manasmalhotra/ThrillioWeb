@@ -14,7 +14,6 @@ public class Book extends Bookmark implements Shareable{
 	private String[] authors;
 	private BookGenre genre;
 	private double amazonRating;
-    private String imageUrl;
     
 	public int getPublicationYear() {
 		return publicationYear;
@@ -88,12 +87,6 @@ public class Book extends Bookmark implements Shareable{
 		return builder.toString();
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 
 }

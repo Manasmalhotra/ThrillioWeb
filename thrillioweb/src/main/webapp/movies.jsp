@@ -4,44 +4,44 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>thrill.io</title>
 </head>
 <body style="font-family:Arial;font-size:20px;">
 	<div style="height:65px;align: center;background: #DB5227;font-family: Arial;color: white;"">
 		<br><b>
-		<a href="" style="font-family:garamond;font-size:34px;margin:0 0 0 10px;color:white;text-decoration: none;">thrill.io</a></b>          
+		<a href="" style="font-family:garamond;font-size:34px;margin:0px 0px 0px 10px;color:white;text-decoration: none;">thrill.io</a></b>
 		<div style="height:25px;background: #DB5227;font-family: Arial;color: white;">
 			<b>
-			<a href="<%=request.getContextPath()%>/auth/login/bookmark/mybooks" style="font-size:16px;color:white;text-decoration:none;margin-left:900px;">My Books</a>
+			<a href="<%=request.getContextPath()%>/auth/login/bookmark/mybooks" style="font-size:16px;color:white;text-decoration:none;margin-left:900px">My Books</a>
 			<a href="<%=request.getContextPath()%>/auth/login/bookmark/mymovies" style="font-size:16px;color:white;text-decoration:none;">My Movies</a>
 			<a href="<%=request.getContextPath()%>/auth/login/bookmark/books" style="font-size:16px;color:white;text-decoration:none;">Books</a>
 			<a href="<%=request.getContextPath()%>/auth/login/bookmark/movies" style="font-size:16px;color:white;text-decoration:none;">Movies</a>
 			<a href="<%=request.getContextPath()%>/auth/logout" style="font-size:16px;color:white;text-decoration:none;">Logout</a>
 			</b>
-		</div> 
+			
+		</div>		
 	</div>
 	<br><br>
 	
-	<div style="font-size: 24px;color: #333333;padding: 15px 0px 0px;border-bottom: #333333 1px solid;clear: both;">Saved Items</div>
-	<br><br>
-	    
-    <c:choose>
-		<c:when test="${!empty(books)}">
-			<table>
-			   <c:forEach var = "book" items="${books}">
+	<table>
+	  <c:forEach var = "movie" items="${movies}">
 			     <tr>
 				   <td>
-				     <img src="${book.imageUrl}" width="175" height="200">
+				     <img src="${movie.imageUrl}" width="175" height="200">
 				   </td>
 					    
 				   <td style="color:gray;">
-					 By <span style="color: #B13100;">${book.authors[0]}</span>
+			
+					 Title: <span style="color: #B13100;">${movie.title}</span>
 					 <br><br>
-					 Rating: <span style="color: #B13100;">${book.amazonRating}</span>
+					 Release Year: <span style="color: #B13100;">${movie.releaseYear}</span>
 					 <br><br>
-					 Publication Year: <span style="color: #B13100;">${book.publicationYear}</span>
+					 IMDB Rating: <span style="color: #B13100;">${movie.imdbRating}</span>
 					<br><br>
-			 <a href = "<%=request.getContextPath()%>/auth/login/bookmark/books/unsave?bid=${book.id}" style="font-size:18px;color:#0058A6;font-weight:bold;text-decoration:none">Unsave</a>
+					 Genre: <span style="color: #B13100;">${movie.genre.getName()}</span>
+					<br><br>
+			 <a href = "<%=request.getContextPath()%>/auth/login/bookmark/movies/save?mid=${movie.id}" style="font-size:18px;color:#0058A6;font-weight:bold;text-decoration:none">Save</a>
 				  </td>
 				  </tr>
 				  <tr>
@@ -49,13 +49,8 @@
 		  		  </tr>
 		  		 
 			   </c:forEach>
-			   
-			</table>
-     	</c:when>
-     <c:otherwise>
-		<br><br>
-       	<span style="font-size: 24px;color: #333333;margin:400px;">You haven't saved any items yet!</span>
-     </c:otherwise>
-    </c:choose>
+	   
+	</table>
+
 </body>
 </html>

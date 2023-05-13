@@ -16,10 +16,15 @@ import entities.User;
 import managers.BookmarkManager;
 import managers.UserManager;
 
-@WebServlet(urlPatterns={"/auth/login/bookmark","/auth/login/bookmark/mybooks","/auth/login/bookmark/save","/auth/login/bookmark/unsave"})
-public class BookmarkController extends HttpServlet{
+@WebServlet(urlPatterns={"/auth/login/bookmark/books","/auth/login/bookmark/mybooks","/auth/login/bookmark/books/save","/auth/login/bookmark/books/unsave"})
+public class BookController extends HttpServlet{
     
-	public BookmarkController() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BookController() {
 	
 	}
 	
@@ -56,7 +61,7 @@ public class BookmarkController extends HttpServlet{
 	
 			}
 			else {
-				dispatcher=request.getRequestDispatcher("/browse.jsp");	
+				dispatcher=request.getRequestDispatcher("/books.jsp");	
 			Collection<Bookmark>list=BookmarkManager.getinstance().getBooks(false,userId);
 			request.setAttribute("books",list);
 			}

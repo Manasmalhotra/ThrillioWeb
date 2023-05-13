@@ -11,6 +11,7 @@ import java.util.List;
 
 import Data.DataStore;
 import constants.BookGenre;
+import constants.MovieGenre;
 import entities.Book;
 import entities.Bookmark;
 import entities.Movie;
@@ -88,9 +89,7 @@ stmt.executeUpdate(query);
 }
 
 private void deleteUserMovie(UserBookmark userBookmark, Statement stmt) throws SQLException {
-	String query="delete from User_Movie where user_id="+
-            userBookmark.getUser().getId()+ "and movie_id="+userBookmark.getBookmark().getId();
-
+	String query="delete from user_movie where user_id="+userBookmark.getUser().getId()+ " and movie_id="+userBookmark.getBookmark().getId();
 stmt.executeUpdate(query);
 	
 }
@@ -252,5 +251,93 @@ public Bookmark getBook(long bookId) {
 		e.printStackTrace();
 	}
 	return book;
+}
+
+public Bookmark getMovie(long mid){
+	Movie movie=null;
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+	
+	try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jid_thrillio?allowPublicKeyRetrieval=true&useSSL=false", "root", "Manas@65");
+			Statement stmt = conn.createStatement();) {	
+		String query = "Select m.id, title,image_url,release_year, GROUP_CONCAT(DISTINCT a.name SEPARATOR ',') AS actors, GROUP_CONCAT(DISTINCT d.name SEPARATOR ',') AS directors, movie_genre_id, imdb_rating"
+				+ " from Movie m, Actor a, Movie_Actor ma, Director d, Movie_Director md "
+				+ "where m.id="+mid+" and m.id = ma.movie_id and ma.actor_id = a.id and "
+				      + "m.id = md.movie_id and md.director_id = d.id group by m.id";
+		
+		ResultSet rs = stmt.executeQuery(query);
+		while(rs.next()) {
+			long id=rs.getLong("id");
+			String title=rs.getString("title");
+			String imageUrl=rs.getString("image_url");
+			String[]directors=rs.getString("directors").split(",");
+			String [] actors=rs.getString("actors").split(",");
+			int release_year=rs.getInt("release_year");
+			MovieGenre mg=MovieGenre.values()[rs.getInt("movie_genre_id")];
+			double imdb_rating=rs.getDouble("imdb_rating");
+			movie=BookmarkManager.getinstance().createMovie(id,title,imageUrl,release_year,actors,directors,mg,imdb_rating);
+		}
+		
+}
+	catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return movie;
+}
+
+public Collection<Bookmark> getMovies(boolean isBookmarked, long userId) {
+	Collection<Bookmark> result = new ArrayList<>();
+	
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		//new com.mysql.jdbc.Driver(); 
+		            // OR
+		//System.setProperty("jdbc.drivers", "com.mysql.jdbc.Driver");
+	
+	                // OR java.sql.DriverManager
+	    //DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+	
+	try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jid_thrillio?allowPublicKeyRetrieval=true&useSSL=false", "root", "Manas@65");
+			Statement stmt = conn.createStatement();) {			
+		
+		String query = "";
+		if (!isBookmarked) {
+			query="select m.id,title,image_url,GROUP_CONCAT(d.name SEPARATOR ',') as directors,GROUP_CONCAT(a.name SEPARATOR ',') as actors,"+
+			          "release_year,movie_genre_id,imdb_rating from movie m,movie_actor ma,movie_director md,actor a,director d "+
+				      "where m.id=ma.movie_id and m.id=md.movie_id and ma.actor_id=a.id and md.director_id=d.id and m.id not in (Select movie_id from user u,user_movie um where u.id=5 and u.id=um.user_id) group by m.id";
+		}
+		else {
+			query="select m.id,title,image_url,GROUP_CONCAT(d.name SEPARATOR ',') as directors,GROUP_CONCAT(a.name SEPARATOR ',') as actors,"+
+			          "release_year,movie_genre_id,imdb_rating from movie m,movie_actor ma,movie_director md,actor a,director d "+
+				      "where m.id=ma.movie_id and m.id=md.movie_id and ma.actor_id=a.id and md.director_id=d.id and m.id in (Select movie_id from user u,user_movie um where u.id=5 and u.id=um.user_id) group by m.id";
+		}
+		ResultSet rs = stmt.executeQuery(query);
+		while(rs.next()) {
+			long id=rs.getLong("id");
+			String title=rs.getString("title");
+			String imageUrl=rs.getString("image_url");
+			String[]directors=rs.getString("directors").split(",");
+			String [] actors=rs.getString("actors").split(",");
+			int release_year=rs.getInt("release_year");
+			MovieGenre mg=MovieGenre.values()[rs.getInt("movie_genre_id")];
+			double imdb_rating=rs.getDouble("imdb_rating");
+			Movie movie=BookmarkManager.getinstance().createMovie(id,title,imageUrl,release_year,actors,directors,mg,imdb_rating);
+			result.add(movie);
+		}
+
+}
+	catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	return result;
+	
 }
 }
