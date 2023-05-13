@@ -1,4 +1,4 @@
-# Thrillio | Social BookMarking Application
+# Thrillio | Bookmarking Application
 
 Thrillio is a bookmarking application that allows its users to browse through a list of movies and books.
 The user can bookmark the items they would like to follow as per their interests.
