@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import constants.Gender;
 import constants.UserType;
 import entities.User;
 import managers.UserManager;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Servlet implementation class AuthController
@@ -38,6 +40,16 @@ public class AuthController extends HttpServlet {
 		if(request.getServletPath().contains("register")) {
 			long id=1000;
 			String email=request.getParameter("email");
+			if(UserManager.getInstance().userPresent(email)==true) {
+				PrintWriter out = response.getWriter(); 
+				out.println("<script type=\"text/javascript\">"); 
+				out.println("alert('Email already in use! Please login to continue');");
+				out.println("location='/register.jsp';"); 
+				out.println("</script>"); 
+				request.getSession().invalidate();
+				request.getRequestDispatcher("/login.jsp").forward(request, response);
+			}
+			else {
 			String password=request.getParameter("password");
 			String firstName=request.getParameter("firstname");
 			String lastName=request.getParameter("lastname");
@@ -55,6 +67,7 @@ public class AuthController extends HttpServlet {
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", userId);
 			request.getRequestDispatcher("login/bookmark/mybooks").forward(request, response);
+			}
 		}
 		else if(!request.getServletPath().contains("logout")) {
 			String email=request.getParameter("email");

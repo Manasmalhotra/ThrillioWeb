@@ -48,4 +48,9 @@ public class UserManager {
 		return dao.authenticate(email,StringUtil.encodePassword(password));
 		
 	}
+
+	public boolean userPresent(String email) {
+		// TODO Auto-generated method stub
+		return dao.userPresent(email);
+	}
 }

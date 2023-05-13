@@ -122,4 +122,28 @@ public class UserDao {
 		return -1;
 	}
 
+
+
+	public boolean userPresent(String email) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jid_thrillio?allowPublicKeyRetrieval=true&useSSL=false", "root", "Manas@65");
+				Statement stmt = conn.createStatement();) {	
+		      String query="Select id from User where email="+"'"+email+"'";
+		      ResultSet rs=stmt.executeQuery(query);
+		      if(rs.next()) {
+		    	  return true;
+		      }
+		      return false;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;	
+	}
+
 }
