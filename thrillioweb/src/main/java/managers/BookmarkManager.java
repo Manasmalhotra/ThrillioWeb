@@ -1,11 +1,7 @@
 package managers;
 
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
 
+import java.util.Collection;
 import constants.BookGenre;
 import constants.KidFriendlyStatus;
 import constants.MovieGenre;
@@ -16,8 +12,6 @@ import entities.Movie;
 import entities.User;
 import entities.UserBookmark;
 import entities.WebLink;
-import util.HttpConnect;
-import util.IOUtil;
 
 public class BookmarkManager {
 	private static BookmarkManager instance = new BookmarkManager();
@@ -70,9 +64,7 @@ public class BookmarkManager {
 		return weblink;
 	}
 
-	public List<List<Bookmark>> getBookmarks() {
-		return dao.getBookmarks();
-	}
+
 
 	public void saveUserBookmark(User user, Bookmark bookmark) {
 		UserBookmark userBookmark = new UserBookmark();
