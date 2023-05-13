@@ -9,7 +9,6 @@ import java.util.List;
 
 import java.sql.Statement;
 
-import Data.DataStore;
 import constants.Gender;
 import constants.UserType;
 import entities.User;
@@ -30,7 +29,6 @@ public class UserDao {
 		String query="Select b.id,b.email,b.password,b.first_name,b.last_name,b.gender_id,b.user_type_id,b.created_date from User b";
 		ResultSet rs=stmt.executeQuery(query);
 		
-		List<String> data=new ArrayList<>();
     	while(rs.next()) {
     		long id = rs.getLong("id");
     		String email=rs.getString("email");
