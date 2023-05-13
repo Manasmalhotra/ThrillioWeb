@@ -1,12 +1,11 @@
 # Thrillio | Social BookMarking Application
-----------------------------------------------
 
 Thrillio is a bookmarking application that allows its users to browse through a list of movies and books.
 The user can bookmark the items they would like to follow as per their interests.
 The user also has the option to unsave a bookmark at any point of time.
 
 # Concepts Covered 
------------------------------------------------
+
 1) Core Java.
 2) Object Oriented Programming.
 3) Exception Handling.
