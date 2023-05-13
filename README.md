@@ -20,8 +20,7 @@ The user also has the option to unsave a bookmark at any point of time.
 ![ThrillioSchema](https://github.com/Manasmalhotra/ThrillioWeb/assets/42417319/6b2883ae-8532-4056-a65b-56030f3a52d8)
 
 # Demo Video
-
-<iframe width="727" height="409" src="https://www.youtube.com/embed/F7mD_dltAhg" title="Bookmarking Web Application" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/F7mD_dltAhg/0.jpg)](http://www.youtube.com/watch?v=F7mD_dltAhg "Bookmarking Application")
 
 
 
